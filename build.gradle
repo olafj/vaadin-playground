@@ -1,0 +1,92 @@
+buildscript {
+	ext {
+		springBootVersion = '1.5.10.RELEASE'
+	}
+	repositories {
+		mavenCentral()
+	}
+	dependencies {
+		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+	}
+}
+
+plugins {
+	id 'com.devsoap.plugin.vaadin' version "1.2.0"
+}
+
+apply plugin: 'java'
+apply plugin: 'org.springframework.boot'
+
+group = 'de.olafj'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = 1.8
+
+repositories {
+	mavenLocal()
+	mavenCentral()
+	maven {
+		name 'vaddin-addons'
+		url 'http://maven.vaadin.com/vaadin-addons'
+	}
+}
+
+
+ext {
+	vaadinVersion = '8.3.0'
+}
+
+vaadin {
+	version = vaadinVersion
+	vaadinCompile.widgetset = "AppWidgetset"
+	vaadinCompile.sourcePaths = ['de/olafj/vaadinplayground/client/widgets']
+	vaadinThemeCompile.compress = false
+}
+
+// https://github.com/johndevs/gradle-vaadin-plugin/issues/372#issuecomment-293927689
+// workaround for error in gwt-java-to-js-compiler
+configurations['vaadin-client'].resolutionStrategy {
+	dependencySubstitution {
+		substitute module('javax.validation:validation-api') with module('javax.validation:validation-api:1.0.0.GA')
+	}
+}
+
+configurations.getByName("vaadin-javadoc") {
+	exclude module: '*'
+}
+
+configurations.getByName("vaadin-client") {
+	exclude group: 'org.eclipse.jetty'
+}
+
+dependencies {
+	compile 'org.vaadin.addon:confirmdialog:3.2.0'
+	compile "com.vaadin:vaadin-push:${vaadinVersion}"
+	compile 'com.github.vaadin4qbanos:jsclipboard:1.0.12'
+	compile 'com.byteowls:vaadin-medium-editor:2.0.0'
+	//compile 'org.vaadin.alump.gridstack:gridstack-addon:0.4.2-SNAPSHOT'
+	compile 'org.vaadin.alump.gridstack:gridstack-addon:0.4.1'
+    compile 'org.vaadin.addons:sizereporter:0.1.4'
+	compile 'com.vaadin.pekka:resizablecsslayout:2.0.0'
+
+	compile('com.vaadin:vaadin-spring-boot-starter')
+	testCompile('org.springframework.boot:spring-boot-starter-test')
+	runtime('org.springframework.boot:spring-boot-devtools')
+}
+
+dependencyManagement {
+	imports {
+		mavenBom "com.vaadin:vaadin-bom:${vaadinVersion}"
+	}
+}
+
+bootRun {
+	dependsOn "vaadinCompile", "vaadinThemeCompile"
+	classpath += configurations['vaadin-server']
+	classpath += configurations['vaadin-client']
+	//classpath += configurations['providedRuntime']
+	jvmArgs = ["-Dspring.profiles.active=local"]
+}
+
+bootRun.dependsOn "vaadinCompile", "vaadinThemeCompile"
+
+jar.dependsOn "vaadinCompile", "vaadinThemeCompile"

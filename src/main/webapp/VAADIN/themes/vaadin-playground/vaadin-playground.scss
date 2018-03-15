@@ -1,0 +1,85 @@
+@import "../valo/valo.scss";
+
+@mixin vaadin-playground {
+	@include valo;
+
+	.green {
+		background-color: green;
+	}
+
+	.tag-box {
+		margin: 3px;
+	}
+
+	.tag-box-text {
+		margin-top: -2px;
+	}
+
+	div.tag-box:hover {
+		color: $v-focus-color;
+		font-weight: bold;
+	}
+
+	.tag-box-hlayout {
+		margin-left: 6px;
+	}
+
+	div.tag-box-button:hover {
+		color: $v-focus-color;
+	}
+
+	div.v-button-tag-box-button:after, div.v-button-tag-box-button:focus {
+		border-color: inherit !important;
+		-webkit-box-shadow: none !important;
+		box-shadow: none !important;
+	}
+
+	.waitdialog-content {
+		padding: 24px;
+
+		.v-progressbar {
+			margin-right: 12px;
+		}
+	}
+
+	.v-gridlayout-slot {
+		border-style: dotted;
+	}
+
+	.grid-item {
+		background-color: lightblue;
+		width: 100%;
+		height: 100%;
+	}
+
+	.grid-item-content {
+		background-color: lightgreen;
+		width: 100%;
+		height: 100%;
+	}
+
+	.grid-area {
+		border: 1px solid green;
+	}
+
+	.v-gridlayout {
+		border: 1px solid green;
+
+		.v-csslayout > .v-formlayout {
+			border: 1px solid CornflowerBlue;
+		}
+
+		&.resizing-child {
+			a,
+			div,
+			input,
+			span {
+				-webkit-user-select: none;  /* Chrome all / Safari all */
+				-moz-user-select: none;     /* Firefox all */
+				-ms-user-select: none;      /* IE 10+ */
+				-o-user-select: none;
+				user-select: none;
+			}
+		}
+	}
+}
