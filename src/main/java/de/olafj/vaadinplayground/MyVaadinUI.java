@@ -2,6 +2,7 @@ package de.olafj.vaadinplayground;
 
 import com.vaadin.annotations.Push;
 import com.vaadin.annotations.Theme;
+import com.vaadin.annotations.Viewport;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.spring.annotation.EnableVaadin;
 import com.vaadin.spring.annotation.SpringUI;
@@ -12,8 +13,8 @@ import com.vaadin.ui.themes.ValoTheme;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 
+@Viewport("width=device-width, initial-scale=1")
 @Push
-//@PushStateNavigation
 @Theme("vaadin-playground")
 @SpringUI
 @SuppressWarnings("serial")

@@ -1,0 +1,17 @@
+/* This file is automatically managed and will be overwritten from time to time. */
+/* Do not manually edit this file. */
+
+/* Provided by gridstack-addon-0.4.1.jar */
+@import "../../../VAADIN/addons/gridstack/gridstack.scss";
+
+
+/* Provided by resizablecsslayout-2.0.0.jar */
+@import "../../../VAADIN/addons/resizablecsslayout/resizablecsslayout.scss";
+
+
+/* Import and include this mixin into your project theme to include the addon themes */
+@mixin addons {
+	@include gridstack;
+	@include resizablecsslayout;
+}
+
